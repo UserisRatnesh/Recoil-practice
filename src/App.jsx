@@ -3,11 +3,11 @@ import CounterCard from "./component/CounterCard"
 
 function App() {
 
-  return <RecoilRoot>
+  return (
     <div>
       <CounterCard></CounterCard>
     </div>
-  </RecoilRoot>
+  )
 }
 
 
