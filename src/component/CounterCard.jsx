@@ -1,46 +1,42 @@
 
 import { Button, Card } from "@mui/material";
-import { createContext, useContext, useState } from "react";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import countState from "../atom/countState"
 
-const CountContext = createContext();
+
 
 function CounterCard() {
 
-    const [count, setCount] = useState(0);
     return (
-        <CountContext.Provider value={{
-            count: count,
-            setCount: setCount
-        }}>
-            <div>
-                <Card>
-                    <IncreaseCard ></IncreaseCard>
-                    <DecreaseCard ></DecreaseCard>
-                    <DisplayCount ></DisplayCount>
-                </Card>
-            </div>
-        </CountContext.Provider>
+        <div>
+            <Card>
+                <IncreaseCard ></IncreaseCard>
+                <DecreaseCard ></DecreaseCard>
+                <DisplayCount ></DisplayCount>
+            </Card>
+        </div>
+
     )
 }
 
 function DisplayCount() {
-    const { count } = useContext(CountContext);
+    const count = useRecoilValue(countState);
     return <div>
         {count}
     </div>
 }
 
 function IncreaseCard() {
-    const { count, setCount } = useContext(CountContext);
+    const setCount = useSetRecoilState(countState);
     return <div>
-        <Button variant="outlined" onClick={() => setCount(count + 1)}>Increase</Button>
+        <Button variant="outlined" onClick={() => setCount((existingCount) => existingCount + 1)}>Increase</Button>
     </div>
 }
 
 function DecreaseCard() {
-    const { count, setCount } = useContext(CountContext);
+    const setCount = useSetRecoilState(countState);
     return <div>
-        <Button variant="outlined" onClick={() => setCount(count - 1)}>Decrease</Button>
+        <Button variant="outlined" onClick={() => setCount((existingCount) => existingCount - 1)}>Decrease</Button>
     </div>
 }
 
